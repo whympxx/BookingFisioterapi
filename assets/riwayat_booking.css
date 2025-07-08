@@ -1,0 +1,100 @@
+body {
+  background: #f4f8fb;
+  font-family: 'Inter', Arial, sans-serif;
+  color: #222;
+}
+
+.riwayat-header {
+  background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+  color: #fff;
+  border-radius: 0 0 24px 24px;
+  box-shadow: 0 4px 16px rgba(0,123,255,0.08);
+}
+.riwayat-header h1 {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.riwayat-header .btn {
+  margin-top: 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+}
+
+.card {
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  border: none;
+  background: #fff;
+}
+
+.riwayat-table {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.riwayat-table thead th {
+  background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.riwayat-table tbody tr {
+  transition: background 0.2s;
+}
+.riwayat-table tbody tr:hover {
+  background: #e9f5ff;
+}
+.riwayat-table td, .riwayat-table th {
+  vertical-align: middle;
+  text-align: center;
+  padding: 12px 8px;
+}
+
+.badge-warning {
+  background: #ffc107;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1em;
+  border-radius: 8px;
+  padding: 6px 16px;
+}
+.badge-info {
+  background: #17a2b8;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1em;
+  border-radius: 8px;
+  padding: 6px 16px;
+}
+.badge-success {
+  background: #28a745;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1em;
+  border-radius: 8px;
+  padding: 6px 16px;
+}
+.badge-secondary {
+  background: #6c757d;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1em;
+  border-radius: 8px;
+  padding: 6px 16px;
+}
+
+@media (max-width: 768px) {
+  .riwayat-header h1 {
+    font-size: 1.5rem;
+  }
+  .card {
+    padding: 1rem !important;
+  }
+  .riwayat-table td, .riwayat-table th {
+    padding: 8px 4px;
+    font-size: 0.95em;
+  }
+} 
