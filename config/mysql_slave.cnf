@@ -1,0 +1,49 @@
+[mysqld]
+# Basic Settings
+port = 3307
+socket = /tmp/mysql_slave.sock
+datadir = C:/xampp/mysql_slave/data
+basedir = C:/xampp/mysql
+tmpdir = C:/xampp/tmp
+
+# Server ID (harus berbeda dari master)
+server-id = 2
+
+# Binary Logging
+log-bin = mysql-bin
+binlog-format = ROW
+expire_logs_days = 7
+
+# Relay Log (untuk slave)
+relay-log = relay-bin
+relay-log-index = relay-bin.index
+
+# InnoDB Settings
+innodb_buffer_pool_size = 256M
+innodb_log_file_size = 64M
+innodb_file_per_table = 1
+innodb_flush_log_at_trx_commit = 1
+
+# Networking
+bind-address = 127.0.0.1
+max_connections = 100
+
+# Logging
+general_log = 1
+general_log_file = C:/xampp/mysql_slave/logs/mysql_general.log
+slow_query_log = 1
+slow_query_log_file = C:/xampp/mysql_slave/logs/mysql_slow.log
+long_query_time = 2
+
+# Error log
+log-error = C:/xampp/mysql_slave/logs/mysql_error.log
+
+# Character set
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+
+# Slave specific settings
+read_only = 1
+slave_skip_errors = 1062,1053
+slave_net_timeout = 60
+slave_compressed_protocol = 1

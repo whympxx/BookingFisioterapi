@@ -1,0 +1,36 @@
+# Logs
+logs/
+*.log
+
+# Database files
+*.sql
+*.bak
+
+# Backup files
+backups/
+
+# Upload directories
+uploads/
+
+# Cache files
+cache/
+*.cache
+
+# IDE files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+master_status.tmp
+slave_status.tmp
+slave_replica.sql
+slave_initial_data.sql
+
+# Test files
+test_results_*.txt
