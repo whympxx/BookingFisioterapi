@@ -35,6 +35,8 @@ BookingFisioterapi/
 
 ## Instalasi
 
+### Local Development
+
 1. **Clone repository**:
    ```bash
    git clone git@github.com:whympxx/BookingFisioterapi.git
@@ -43,7 +45,7 @@ BookingFisioterapi/
 
 2. **Setup database**:
    - Buat database `db_fisioterapi`
-   - Import struktur database (lihat scripts/setup_database.sql)
+   - Import struktur database: `mysql -u root < database/schema.sql`
 
 3. **Konfigurasi**:
    - Edit file `includes/db.php` untuk koneksi database
@@ -57,6 +59,32 @@ BookingFisioterapi/
 
 5. **Akses aplikasi**:
    - Buka `http://localhost/BookingFisioterapi/pages/index.php`
+
+### Vercel Deployment
+
+1. **Deploy to Vercel**:
+   ```bash
+   # Install Vercel CLI
+   npm i -g vercel
+   
+   # Deploy
+   vercel
+   ```
+
+2. **Setup Database**:
+   - Gunakan cloud database seperti PlanetScale, Railway, atau Heroku Postgres
+   - Import schema: `database/schema.sql`
+   - Set environment variables di Vercel dashboard
+
+3. **Environment Variables**:
+   - `DB_HOST`: Database host
+   - `DB_USER`: Database username
+   - `DB_PASSWORD`: Database password
+   - `DB_NAME`: Database name
+
+4. **Live Demo**:
+   - URL akan tersedia setelah deployment
+   - Contoh: `https://booking-fisioterapi.vercel.app`
 
 ## Fitur Replikasi Database
 

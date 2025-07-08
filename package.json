@@ -1,0 +1,28 @@
+{
+  "name": "booking-fisioterapi",
+  "version": "1.0.0",
+  "description": "Sistem booking fisioterapi dengan fitur replikasi database",
+  "main": "index.php",
+  "scripts": {
+    "dev": "php -S localhost:8000",
+    "build": "echo 'Build completed'",
+    "start": "php -S localhost:8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whympxx/BookingFisioterapi.git"
+  },
+  "keywords": [
+    "php",
+    "mysql",
+    "booking",
+    "fisioterapi",
+    "healthcare"
+  ],
+  "author": "whympxx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whympxx/BookingFisioterapi/issues"
+  },
+  "homepage": "https://github.com/whympxx/BookingFisioterapi#readme"
+}
