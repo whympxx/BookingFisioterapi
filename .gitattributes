@@ -1,0 +1,86 @@
+# 🔧 Git Attributes for Language Detection
+# This file helps GitHub properly detect languages and exclude unwanted ones
+
+# 📝 Force PHP detection for all PHP files
+*.php linguist-language=PHP
+
+# 🚫 Exclude vendor and dependencies from language stats
+vendor/* linguist-vendored
+node_modules/* linguist-vendored
+assets/bootstrap-4.6.2-dist/* linguist-vendored
+assets/bootstrap-4.6.2-dist/**/* linguist-vendored
+
+# 📊 Include important files in language detection
+*.css linguist-language=CSS
+*.js linguist-language=JavaScript
+*.html linguist-language=HTML
+*.sql linguist-language=SQL
+
+# 🚫 Exclude generated and minified files
+*.min.js linguist-generated
+*.min.css linguist-generated
+*.map linguist-generated
+
+# 🔧 Documentation files
+*.md linguist-documentation
+docs/* linguist-documentation
+README* linguist-documentation
+CHANGELOG* linguist-documentation
+LICENSE linguist-documentation
+DEPLOYMENT_GUIDE.md linguist-documentation
+
+# 📦 Config and build files
+*.json linguist-language=JSON
+package.json linguist-language=JSON
+composer.json linguist-language=JSON
+vercel.json linguist-language=JSON
+
+# 🗄️ Database files
+*.sql linguist-language=SQL
+database/*.sql linguist-language=SQL
+scripts/*.sql linguist-language=SQL
+
+# 🖼️ Media files (exclude from stats)
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.svg linguist-detectable=false
+*.ico binary
+
+# 📁 Batch files
+*.bat linguist-language=Batchfile
+*.cmd linguist-language=Batchfile
+
+# 🔧 Server config
+.htaccess linguist-language=ApacheConf
+*.conf linguist-language=ApacheConf
+
+# 🚫 Exclude backup and temporary files
+*.backup linguist-generated
+*.tmp linguist-generated
+*.log linguist-generated
+
+# 📊 Force correct detection for specific files that might be misdetected
+pages/*.php linguist-language=PHP
+includes/*.php linguist-language=PHP
+admin/*.php linguist-language=PHP
+api/*.php linguist-language=PHP
+test/*.php linguist-language=PHP
+scripts/*.php linguist-language=PHP
+
+# 🎨 Frontend assets
+assets/css/*.css linguist-language=CSS
+assets/js/*.js linguist-language=JavaScript
+
+# 🚫 Prevent Hack language detection
+# GitHub sometimes misidentifies PHP files as Hack
+*.php linguist-language=PHP
+*.php3 linguist-language=PHP
+*.php4 linguist-language=PHP
+*.php5 linguist-language=PHP
+*.phtml linguist-language=PHP
+
+# 🔄 Override any Hack detection
+*.hh linguist-language=PHP
+*.hack linguist-language=PHP
