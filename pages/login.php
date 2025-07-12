@@ -2,33 +2,54 @@
 session_start();
 include __DIR__ . '/../includes/db.php';
 
+$error = null;
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $u = $_POST['username'];
-    $p = $_POST['password'];
-    $role = $_POST['role'];
-    if ($role === 'admin') {
-        $q = mysqli_query($conn, "SELECT * FROM admin WHERE username='$u'");
-        $data = mysqli_fetch_assoc($q);
-        if ($data && password_verify($p, $data['password'])) {
-            $_SESSION['admin'] = $u;
-            header('Location: admin.php');
-            exit();
+    $u = trim($_POST['username'] ?? '');
+    $p = $_POST['password'] ?? '';
+    $role = $_POST['role'] ?? '';
+
+    if (!$u || !$p || !$role) {
+        $error = "Semua field harus diisi!";
+    } else if ($role === 'admin') {
+        // Gunakan prepared statement untuk admin
+        $stmt = mysqli_prepare($conn, "SELECT * FROM admin WHERE username = ?");
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "s", $u);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $data = mysqli_fetch_assoc($result);
+            if ($data && password_verify($p, $data['password'])) {
+                $_SESSION['admin'] = $u;
+                header('Location: admin.php');
+                exit();
+            } else {
+                $error = "Login admin gagal!";
+            }
+            mysqli_stmt_close($stmt);
         } else {
-            $error = "Login admin gagal!";
+            $error = "Terjadi kesalahan pada query admin.";
         }
     } else if ($role === 'user') {
         $stmt = mysqli_prepare($conn, "SELECT * FROM user WHERE username = ?");
-        mysqli_stmt_bind_param($stmt, "s", $u);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $data = mysqli_fetch_assoc($result);
-        if ($data && password_verify($p, $data['password'])) {
-            $_SESSION['user'] = $u;
-            header('Location: dashboard.php');
-            exit();
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "s", $u);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $data = mysqli_fetch_assoc($result);
+            if ($data && password_verify($p, $data['password'])) {
+                $_SESSION['user'] = $u;
+                header('Location: dashboard.php');
+                exit();
+            } else {
+                $error = "Login user gagal!";
+            }
+            mysqli_stmt_close($stmt);
         } else {
-            $error = "Login user gagal!";
+            $error = "Terjadi kesalahan pada query user.";
         }
+    } else {
+        $error = "Role tidak valid!";
     }
 }
 ?>
