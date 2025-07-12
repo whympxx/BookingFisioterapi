@@ -1,3 +1,184 @@
+# 🔒 Security & Configuration
+.env
+.env.local
+.env.production
+config/private/
+secrets/
+*.key
+*.pem
+*.p12
+
+# 💾 Database
+*.sql.backup
+*.dump
+*.db
+*.sqlite
+*.sqlite3
+backups/*.sql
+backups/*.zip
+backups/*.tar.gz
+
+# 📁 Uploads & User Content
+uploads/
+temp/
+tmp/
+files/
+*.tmp
+
+# 📊 Logs & Monitoring
+*.log
+logs/
+error_log
+access_log
+email_logs.txt
+replication.log
+monitor.log
+
+# 🛠️ Development Tools
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# 📦 Dependencies & Build
+vendor/
+node_modules/
+npm-debug.log
+yarn-error.log
+composer.lock
+package-lock.json
+
+# 🧪 Testing
+tests/coverage/
+phpunit.xml
+.phpunit.result.cache
+test_*.php
+test_output/
+
+# 🎯 IDE & Editor
+*.sublime-project
+*.sublime-workspace
+.vscode/settings.json
+.idea/workspace.xml
+
+# 🌐 System Files
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.Trashes
+
+# 📱 Mobile Development
+platforms/
+plugins/
+www/
+
+# 🔄 Version Control
+.git/
+.svn/
+.hg/
+
+# 📈 Analytics & Reports
+reports/
+analytics/
+*.csv
+*.xlsx
+*.pdf
+
+# 🚀 Deployment
+dist/
+build/
+deployment/
+.vercel/
+.netlify/
+
+# 💻 Local Development
+xampp/
+wamp/
+mamp/
+localhost/
+
+# 🔧 Configuration Overrides
+config_local.php
+db_local.php
+settings_local.php
+
+# 🎨 Assets & Media
+*.psd
+*.ai
+*.sketch
+*.fig
+raw_assets/
+source_files/
+
+# 📊 Database Exports
+exports/
+data_exports/
+*.sql.gz
+
+# 🔐 Security Scans
+security_scan_*
+vulnerability_report_*
+
+# 📞 Communication
+sms_logs/
+email_queue/
+notifications/
+
+# 🤖 AI & ML
+models/
+training_data/
+ai_cache/
+
+# 📦 Package Managers
+yarn.lock
+pnpm-lock.yaml
+.pnpm-store/
+
+# 🎭 Frontend Build
+assets/compiled/
+css/compiled/
+js/compiled/
+
+# 🏥 Healthcare Specific
+patient_data/
+medical_records/
+hipaa_logs/
+compliance_reports/
+
+# 🔍 Search Indexes
+search_index/
+elastic_search/
+
+# 📨 Email Templates Compiled
+email_cache/
+template_cache/
+
+# 🎯 Performance
+performance_logs/
+profiling/
+benchmarks/
+
+# 🔄 Replication
+replication_temp/
+sync_logs/
+master_slave_logs/
+
+# 🎪 Demo & Staging
+demo_data/
+staging_uploads/
+test_images/
+
+# 📱 PWA
+manifest.json.backup
+service-worker.js.backup
+
+# 🎨 Themes
+themes/custom/
+themes/temp/
+
 # Logs
 logs/
 *.log
