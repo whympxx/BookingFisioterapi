@@ -569,3 +569,5 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ![Scalable](https://img.shields.io/badge/Scalable-Solution-orange?style=for-the-badge)
 
 </div>
+
+Made by [whympxx](https://github.com/whympxx).
