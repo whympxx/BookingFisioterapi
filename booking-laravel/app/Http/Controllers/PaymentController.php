@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Support\Upload;
 use App\Models\Payment;
 use App\Support\PaymentGateway;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use RuntimeException;
@@ -96,8 +96,7 @@ class PaymentController extends Controller
             'bukti' => ['required', 'file', 'mimes:jpg,jpeg,png,webp,pdf', 'max:3072'],
         ], ['bukti.required' => 'Pilih file bukti transfer.']);
 
-        $name = 'bukti_'.$booking->id.'_'.time().'_'.Str::random(5).'.'.$request->file('bukti')->extension();
-        $request->file('bukti')->move(public_path('uploads/bukti'), $name);
+        $name = Upload::store($request->file('bukti'), 'bukti', 'bukti_'.$booking->id);
 
         $payment->update(['proof' => $name]);
         $booking->forceFill(['status_pembayaran' => 'Menunggu Verifikasi'])->save();

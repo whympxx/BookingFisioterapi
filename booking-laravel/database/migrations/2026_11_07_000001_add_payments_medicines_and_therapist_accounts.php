@@ -10,6 +10,10 @@ return new class extends Migration
     public function up(): void
     {
         // Role baru "terapis" untuk akun fisioterapis.
+        // Di PostgreSQL, enum dibuat sebagai CHECK constraint yang tidak ikut hilang oleh change().
+        if (DB::getDriverName() === 'pgsql') {
+            DB::statement('ALTER TABLE users DROP CONSTRAINT IF EXISTS users_role_check');
+        }
         Schema::table('users', function (Blueprint $table) {
             $table->string('role', 20)->default('user')->change();
         });

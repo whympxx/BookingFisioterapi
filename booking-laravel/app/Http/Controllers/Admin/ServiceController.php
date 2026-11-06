@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Support\Upload;
 use App\Models\Service;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -90,10 +91,7 @@ class ServiceController extends Controller
             return null;
         }
 
-        $name = 'service_'.time().'_'.Str::random(5).'.'.$request->file('image')->extension();
-        $request->file('image')->move(public_path('uploads/services'), $name);
-
-        return $name;
+        return Upload::store($request->file('image'), 'services', 'service');
     }
 
     private function uniqueSlug(string $name): string

@@ -20,8 +20,8 @@ class PaymentController extends Controller
             ->when($filter === 'verifikasi', fn ($q) => $q->where('status', 'pending')->whereNotNull('proof'))
             ->when(in_array($filter, ['pending', 'paid', 'failed', 'expired'], true), fn ($q) => $q->where('status', $filter))
             ->when($request->query('q'), function ($q, $search) {
-                $q->where(fn ($w) => $w->where('order_id', 'like', "%{$search}%")
-                    ->orWhereHas('booking', fn ($b) => $b->where('nama', 'like', "%{$search}%")->orWhere('kode_booking', 'like', "%{$search}%")));
+                $q->where(fn ($w) => $w->whereLike('order_id', "%{$search}%")
+                    ->orWhereHas('booking', fn ($b) => $b->whereLike('nama', "%{$search}%")->orWhereLike('kode_booking', "%{$search}%")));
             })
             ->latest()
             ->paginate(15)

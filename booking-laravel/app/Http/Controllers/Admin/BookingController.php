@@ -22,10 +22,10 @@ class BookingController extends Controller
             ->when(in_array($status, Booking::STATUSES, true), fn ($q) => $q->where('status', $status))
             ->when($tanggal && preg_match('/^\d{4}-\d{2}-\d{2}$/', $tanggal), fn ($q) => $q->whereDate('tanggal_booking', $tanggal))
             ->when($search !== '', function ($q) use ($search) {
-                $q->where(fn ($q) => $q->where('nama', 'like', "%$search%")
-                    ->orWhere('email', 'like', "%$search%")
-                    ->orWhere('no_hp', 'like', "%$search%")
-                    ->orWhere('kode_booking', 'like', "%$search%"));
+                $q->where(fn ($q) => $q->whereLike('nama', "%$search%")
+                    ->orWhereLike('email', "%$search%")
+                    ->orWhereLike('no_hp', "%$search%")
+                    ->orWhereLike('kode_booking', "%$search%"));
             })
             ->orderByDesc('tanggal_booking')
             ->orderByDesc('waktu_booking')

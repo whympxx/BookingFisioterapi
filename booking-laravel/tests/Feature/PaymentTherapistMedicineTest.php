@@ -167,6 +167,74 @@ class PaymentTherapistMedicineTest extends TestCase
         File::delete(public_path('uploads/bukti/'.$payment->proof));
     }
 
+    public function test_uploads_can_be_stored_in_database(): void
+    {
+        config(['filesystems.upload_driver' => 'database']);
+        $booking = $this->booking();
+        $user = $booking->user;
+        $this->actingAs($user)->post("/booking/{$booking->id}/bayar", ['method' => 'transfer']);
+        $payment = Payment::first();
+
+        $file = UploadedFile::fake()->createWithContent('bukti.pdf', '%PDF-1.4 bukti transfer');
+        $this->actingAs($user)->post("/booking/{$booking->id}/bayar/{$payment->id}/bukti", ['bukti' => $file])
+            ->assertSessionHas('success');
+
+        $payment->refresh();
+        $this->assertMatchesRegularExpression('#^db:\d+/bukti_'.$booking->id.'_#', $payment->proof);
+        $this->assertFalse(File::exists(public_path('uploads/bukti/'.basename($payment->proof))));
+        $url = $payment->proofUrl();
+        $this->assertStringContainsString('/berkas/', $url);
+
+        // Bukti transfer hanya bisa dibuka pemilik dan admin.
+        $this->actingAs($user)->get($url)->assertOk()->assertSee('bukti transfer', false)
+            ->assertHeader('X-Content-Type-Options', 'nosniff');
+        $this->actingAs($this->admin())->get($url)->assertOk();
+        $this->actingAs(User::factory()->create())->get($url)->assertForbidden();
+
+        // Foto profil: publik, dan foto lama dihapus dari database saat diganti.
+        $photo = fn () => new UploadedFile(public_path('assets/img/obat/paracetamol-500-mg.png'), 'foto.png', 'image/png', null, true);
+        $this->actingAs($user)->post('/profil/foto', ['profile_pic' => $photo()]);
+        $first = $user->fresh()->profile_pic;
+        $this->get($user->fresh()->profilePicUrl())->assertOk()->assertHeader('Content-Type', 'image/png');
+        $this->actingAs($user)->post('/profil/foto', ['profile_pic' => $photo()]);
+        $this->assertNotSame($first, $user->fresh()->profile_pic);
+        $this->assertSame(2, \DB::table('uploads')->count()); // bukti + foto baru
+    }
+
+    public function test_uploads_go_to_vercel_blob_when_token_is_set(): void
+    {
+        config(['filesystems.blob_token' => 'vercel_blob_rw_test_token']);
+        Http::fake([
+            'vercel.com/api/blob/delete' => Http::response([], 200),
+            'vercel.com/api/blob/*' => Http::response(['url' => 'https://test.public.blob.vercel-storage.com/bukti/bukti_1-abc.pdf']),
+        ]);
+
+        $booking = $this->booking();
+        $user = $booking->user;
+        $this->actingAs($user)->post("/booking/{$booking->id}/bayar", ['method' => 'transfer']);
+        $payment = Payment::first();
+
+        $file = UploadedFile::fake()->create('bukti.pdf', 50, 'application/pdf');
+        $this->actingAs($user)->post("/booking/{$booking->id}/bayar/{$payment->id}/bukti", ['bukti' => $file])
+            ->assertSessionHas('success');
+
+        $payment->refresh();
+        $this->assertSame('https://test.public.blob.vercel-storage.com/bukti/bukti_1-abc.pdf', $payment->proof);
+        $this->assertSame($payment->proof, $payment->proofUrl());
+
+        Http::assertSent(fn ($request) => $request->method() === 'PUT'
+            && str_starts_with($request->url(), 'https://vercel.com/api/blob/?pathname=bukti%2Fbukti_'.$booking->id.'_')
+            && $request->hasHeader('Authorization', 'Bearer vercel_blob_rw_test_token')
+            && $request->hasHeader('x-api-version', '11'));
+
+        // Foto profil: URL Blob dipakai langsung, foto lama dihapus dari Blob.
+        $user->forceFill(['profile_pic' => 'https://test.public.blob.vercel-storage.com/lama.png'])->save();
+        $this->actingAs($user)->post('/profil/foto', ['profile_pic' => new UploadedFile(public_path('assets/img/obat/paracetamol-500-mg.png'), 'foto.png', 'image/png', null, true)]);
+        $this->assertStringStartsWith('https://', $user->fresh()->profilePicUrl());
+        Http::assertSent(fn ($request) => str_ends_with($request->url(), '/api/blob/delete')
+            && $request['urls'] === ['https://test.public.blob.vercel-storage.com/lama.png']);
+    }
+
     public function test_admin_can_reject_transfer_proof(): void
     {
         $booking = $this->booking();

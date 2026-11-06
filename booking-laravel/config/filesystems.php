@@ -15,6 +15,12 @@ return [
 
     'default' => env('FILESYSTEM_DISK', 'local'),
 
+    // Token Vercel Blob. Bila terisi, file unggahan disimpan di Blob (lihat App\Support\Upload).
+    'blob_token' => env('BLOB_READ_WRITE_TOKEN'),
+
+    // local | database | blob. Kosong: blob bila token terisi, selain itu local.
+    'upload_driver' => env('UPLOAD_DRIVER'),
+
     /*
     |--------------------------------------------------------------------------
     | Filesystem Disks

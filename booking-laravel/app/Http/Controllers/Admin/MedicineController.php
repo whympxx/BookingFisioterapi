@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Support\Upload;
 use App\Models\Medicine;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,9 +45,7 @@ class MedicineController extends Controller
         $medicine->fill($this->validated($request, $medicine));
         if ($image = $this->storeImage($request)) {
             // Hapus foto unggahan lama (foto bawaan di assets/img/obat dibiarkan).
-            if ($medicine->image && is_file(public_path('uploads/obat/'.$medicine->image))) {
-                @unlink(public_path('uploads/obat/'.$medicine->image));
-            }
+            Upload::delete($medicine->image, 'obat');
             $medicine->image = $image;
         }
         $medicine->save();
@@ -95,10 +94,7 @@ class MedicineController extends Controller
             return null;
         }
 
-        $name = 'obat_'.time().'_'.Str::random(5).'.'.$request->file('image')->extension();
-        $request->file('image')->move(public_path('uploads/obat'), $name);
-
-        return $name;
+        return Upload::store($request->file('image'), 'obat', 'obat');
     }
 
     private function uniqueSlug(string $name): string

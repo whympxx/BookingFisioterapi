@@ -78,6 +78,26 @@ Login lewat halaman `/login` yang sama. Admin bisa membuat/mengubah akun terapis
 - Isi obat bersifat edukasi; minta dokter/apoteker memeriksa ulang sebelum dipakai untuk pasien.
 | `/ubah-password` | Ganti password | Semua yang login |
 
+## Deploy ke Vercel
+
+- Runtime PHP: `vercel-php` (lihat `vercel.json`); semua permintaan masuk lewat `api/index.php`,
+  file statis dilayani langsung dari `public/`. Region fungsi: Singapura (`sin1`).
+- Database: Postgres dari Neon (integrasi Vercel Marketplace). `DATABASE_URL` diisi otomatis
+  oleh integrasi; `DB_CONNECTION=pgsql`.
+- Disk server Vercel hanya-baca, jadi `UPLOAD_DRIVER=database`: foto & bukti transfer disimpan di tabel
+  `uploads` dan dibuka lewat `/berkas/{id}/{nama}` (bukti transfer hanya untuk pemilik & admin).
+  Bisa juga `UPLOAD_DRIVER=blob` + `BLOB_READ_WRITE_TOKEN` untuk Vercel Blob.
+- Cache/view Laravel ditulis ke `/tmp` (env `VIEW_COMPILED_PATH`, `APP_*_CACHE`), log ke `stderr`.
+- Migrasi dijalankan dari komputer lokal ke database Neon:
+
+  ```bash
+  vercel env pull .env.vercel --environment=production
+  # isi DB_URL dengan DATABASE_URL dari .env.vercel, lalu:
+  php -d extension=pdo_pgsql artisan migrate --force --seed
+  ```
+
+- Deploy: `vercel deploy --prod` dari folder `booking-laravel`.
+
 ## Aturan jadwal
 
 - Slot per 1 jam di dalam jam operasional (`config/klinik.php`).

@@ -14,10 +14,13 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TherapistPanelController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 // Halaman publik
 Route::get('/', [PageController::class, 'home'])->name('home');
+// File unggahan yang disimpan di database (dipakai saat deploy di Vercel).
+Route::get('/berkas/{upload}/{name}', [UploadController::class, 'show'])->whereNumber('upload')->name('upload.show');
 Route::get('/layanan', [PageController::class, 'layanan'])->name('layanan');
 Route::get('/terapis', [PageController::class, 'therapists'])->name('therapists.index');
 Route::get('/terapis/{therapist}', [PageController::class, 'therapist'])->whereNumber('therapist')->name('therapists.show');

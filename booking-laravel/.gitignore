@@ -23,5 +23,6 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 
-# File unggahan pengguna (bukti bayar, foto profil)
-/public/uploads/*
+.vercel
+.env*
+!.env.example

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use App\Support\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -47,14 +48,10 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
-        $file = $request->file('profile_pic');
-        $name = 'user'.$user->id.'_'.time().'.'.$file->extension();
-        $file->move(public_path('uploads'), $name);
+        $name = Upload::store($request->file('profile_pic'), '', 'user'.$user->id);
 
         // Hapus foto lama supaya folder uploads tidak menumpuk.
-        if ($user->profile_pic && is_file(public_path('uploads/'.$user->profile_pic))) {
-            @unlink(public_path('uploads/'.$user->profile_pic));
-        }
+        Upload::delete($user->profile_pic, '');
 
         $user->update(['profile_pic' => $name]);
 

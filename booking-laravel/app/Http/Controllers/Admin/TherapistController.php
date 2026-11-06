@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Support\Upload;
 use App\Models\Therapist;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
@@ -126,9 +126,6 @@ class TherapistController extends Controller
             return null;
         }
 
-        $name = 'therapist_'.time().'_'.Str::random(5).'.'.$request->file('photo')->extension();
-        $request->file('photo')->move(public_path('uploads/therapists'), $name);
-
-        return $name;
+        return Upload::store($request->file('photo'), 'therapists', 'therapist');
     }
 }
