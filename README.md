@@ -12,7 +12,11 @@
 
 ## 🌟 **Demo Live**
 
-[**🔗 Live Demo**](https://booking-fisioterapi.vercel.app) | [**📱 Mobile Demo**](https://booking-fisioterapi.vercel.app/pages/index.php) | [**👨‍💼 Admin Panel**](https://booking-fisioterapi.vercel.app/pages/admin.php)
+[**🔗 Live Demo**](https://fisioterapi-unggul-sehat.vercel.app) | [**🩺 Layanan**](https://fisioterapi-unggul-sehat.vercel.app/layanan) | [**💊 Obat & Anjuran**](https://fisioterapi-unggul-sehat.vercel.app/obat) | [**👨‍⚕️ Fisioterapis**](https://fisioterapi-unggul-sehat.vercel.app/terapis)
+
+> Demo berjalan di Vercel (versi Laravel 12, folder [`booking-laravel/`](booking-laravel/)). Pembayaran memakai mode demo, tidak ada uang yang ditarik.
+
+![Beranda](docs/screenshots/beranda.png)
 
 ## 📋 **Daftar Isi**
 
@@ -62,23 +66,33 @@
 
 ## 🎯 **Preview**
 
-### 🖥️ **Desktop Dashboard**
+### 🖥️ **Halaman Publik**
 
-| User Dashboard | Admin Panel |
-|:--------------:|:-----------:|
-| ![Dashboard](docs/images/dashboard.png) | ![Admin](docs/images/admin.png) |
+| Layanan + Chatbot | Fisioterapis |
+|:--:|:--:|
+| ![Layanan dan chatbot](docs/screenshots/layanan-chatbot.png) | ![Daftar fisioterapis](docs/screenshots/terapis.png) |
+| **Obat & Anjuran** | **Masuk** |
+| ![Obat dan anjuran](docs/screenshots/obat.png) | ![Halaman login](docs/screenshots/login.png) |
 
-### 📱 **Mobile Experience**
+### 💳 **Pasien: Pembayaran & Tiket**
+
+| Pembayaran Online (QRIS, e-wallet, VA) | Tiket + Rincian Tagihan |
+|:--:|:--:|
+| ![Pembayaran online](docs/screenshots/pembayaran.png) | ![Tiket booking dan tagihan](docs/screenshots/tiket-tagihan.png) |
+
+### 👨‍⚕️ **Panel Fisioterapis & Admin**
+
+| Catatan Terapi + Anjuran Obat | Dasbor Admin |
+|:--:|:--:|
+| ![Panel fisioterapis](docs/screenshots/panel-terapis.png) | ![Dasbor admin](docs/screenshots/admin-dasbor.png) |
+| **Kelola Obat** | |
+| ![Kelola obat](docs/screenshots/admin-obat.png) | |
+
+### 📱 **Tampilan HP**
 
 <div align="center">
-  <img src="docs/images/mobile-booking.png" alt="Mobile Booking" width="300">
-  <img src="docs/images/mobile-dashboard.png" alt="Mobile Dashboard" width="300">
-</div>
-
-### 🤖 **AI Chatbot Interface**
-
-<div align="center">
-  <img src="docs/images/chatbot.png" alt="AI Chatbot" width="400">
+  <img src="docs/screenshots/hp-beranda.png" alt="Beranda di HP" width="280">
+  <img src="docs/screenshots/hp-obat.png" alt="Obat di HP" width="280">
 </div>
 
 ## 🚀 **Quick Start**

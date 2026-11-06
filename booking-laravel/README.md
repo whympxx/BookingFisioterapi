@@ -2,6 +2,16 @@
 
 Versi Laravel 12 dari aplikasi booking fisioterapi di folder `pages/`.
 
+**Live demo:** https://fisioterapi-unggul-sehat.vercel.app
+
+![Beranda](../docs/screenshots/beranda.png)
+
+| Pembayaran online | Panel fisioterapis |
+|:--:|:--:|
+| ![Pembayaran](../docs/screenshots/pembayaran.png) | ![Panel terapis](../docs/screenshots/panel-terapis.png) |
+
+Tangkapan layar lain ada di [README utama](../README.md#-preview).
+
 ## Cara menjalankan (XAMPP)
 
 1. Jalankan **MySQL** dari XAMPP Control Panel.
