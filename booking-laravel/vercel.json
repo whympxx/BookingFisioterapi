@@ -1,0 +1,20 @@
+{
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "framework": null,
+    "installCommand": "true",
+    "buildCommand": "true",
+    "outputDirectory": "public",
+    "regions": ["sin1"],
+    "functions": {
+        "api/index.php": {
+            "runtime": "vercel-php@0.7.4",
+            "maxDuration": 30
+        }
+    },
+    "routes": [
+        { "src": "/(.*\\.php)?", "dest": "/api/index.php" },
+        { "src": "/\\.(.*)", "dest": "/api/index.php" },
+        { "handle": "filesystem" },
+        { "src": "/(.*)", "dest": "/api/index.php" }
+    ]
+}
