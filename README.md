@@ -442,18 +442,14 @@ Bot: "Great! When would you like to schedule your appointment?"
 
 #### **Vercel (Recommended)**
 
+Yang di-deploy ke Vercel adalah versi Laravel di folder [`booking-laravel/`](booking-laravel/)
+(live: https://fisioterapi-unggul-sehat.vercel.app). Langkah lengkap ada di
+[booking-laravel/README.md](booking-laravel/README.md#deploy-ke-vercel).
+
 ```bash
-# Install Vercel CLI
 npm i -g vercel
-
-# Deploy
-vercel --prod
-
-# Environment variables
-vercel env add DB_HOST
-vercel env add DB_USER
-vercel env add DB_PASSWORD
-vercel env add DB_NAME
+cd booking-laravel
+vercel deploy --prod
 ```
 
 #### **Docker Deployment**
